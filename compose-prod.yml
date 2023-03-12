@@ -21,6 +21,7 @@ services:
         target: /var/lib/postgresql/data
     networks:
       - docker-network
+    restart: on-failure
 
   redis:
     container_name: redis-dev
@@ -34,6 +35,7 @@ services:
       target: /data
     networks:
       - docker-network
+    restart: on-failure
 
   nest:
     container_name: nest-prod
@@ -53,6 +55,7 @@ services:
         target: /home/node_modules/
     networks:
       - docker-network
+    restart: on-failure
 
   react:
     container_name: react-prod
@@ -71,13 +74,18 @@ services:
 
     networks:
       - docker-network
+    restart: on-failure
 
   nginx:
     container_name: nginx
     image: nginx:latest
-    ports: 
-      - "80:80"
-      - "443:443"
+    ports:
+      - target: 80
+        published: 80
+        host_ip: localhost
+      - target: 443
+        published: 443
+        host_ip: localhost
     volumes:
       - type: bind
         source: ${REACTDIR}/dist
@@ -88,5 +96,6 @@ services:
         target: /etc/nginx/conf.d
     networks:
       - docker-network
+    restart: on-failure
 
 

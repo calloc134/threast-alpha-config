@@ -21,6 +21,7 @@ services:
         target: /var/lib/postgresql/data
     networks:
       - docker-network
+    restart: on-failure
     
   redis:
     container_name: redis-dev
@@ -34,6 +35,7 @@ services:
         target: /data
     networks:
       - docker-network
+    restart: on-failure
 
   nest:
     container_name: nest-dev
@@ -42,7 +44,9 @@ services:
       dockerfile: Dockerfiles/Nest-dev-Dockerfile
     env_file: env_files/nest.dev.env
     ports:
-      - 5555:5555 # for prisma studio
+      - target: 5555
+        published: 5555
+        host_ip: localhost
     volumes:
       - type: bind
         source: ${NESTDIR}
@@ -53,6 +57,7 @@ services:
         target: /home/node_modules/
     networks:
       - docker-network
+    restart: on-failure
 
   react:
     container_name: react-dev
@@ -69,19 +74,24 @@ services:
         target: /home/node_modules/
     networks:
       - docker-network
+    restart: on-failure
 
   nginx:
     container_name: nginx-dev
     image: nginx:latest
-    ports: 
-      - "80:80"
-      - "443:443"
+    ports:
+      - target: 80
+        published: 80
+        host_ip: localhost
+      - target: 443
+        published: 443
+        host_ip: localhost
     volumes:
       - type: bind
         source: config/nginx-dev
         target: /etc/nginx/conf.d
     networks:
       - docker-network
-    tty: true
+    restart: on-failure
 
 
