@@ -40,4 +40,3 @@ services:
       - docker-network
     depends_on:
       - postgres
-    tty: true
