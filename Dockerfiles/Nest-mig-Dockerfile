@@ -1,0 +1,7 @@
+FROM node:latest
+
+WORKDIR /home
+
+EXPOSE 3001
+
+CMD ["sh", "-c", "tail -f /dev/null"]

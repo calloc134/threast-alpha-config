@@ -1,0 +1,10 @@
+FROM node:latest
+
+WORKDIR /home
+
+EXPOSE 3001
+
+RUN ["npm", "install", "-g", "@nestjs/cli"]
+
+CMD ["sh", "-c", "npm install && npx prisma migrate deploy && npm run build && npm run start"]
+

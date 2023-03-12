@@ -1,0 +1,43 @@
+version: '3'
+
+
+volumes:
+  nest-node-modules:
+  posgre-vol-dev:
+
+networks:
+  docker-network:
+
+services:
+  postgres:
+    container_name: posgre-mig
+    image: postgres:latest
+    env_file: env_files/posgre.dev.env
+    volumes:
+      - type: volume
+        source: posgre-vol-dev
+        target: /var/lib/postgresql/data
+    networks:
+      - docker-network
+
+  nest:
+    container_name: nest-mig
+    build:
+      context: .
+      dockerfile: Dockerfiles/Nest-mig-Dockerfile
+    env_file: env_files/nest.dev.env
+    ports:
+      - 5555:5555 # for prisma studio
+    volumes:
+      - type: bind
+        source: ${NESTDIR}
+        target: /home/
+
+      - type: volume
+        source: nest-node-modules
+        target: /home/node_modules/
+    networks:
+      - docker-network
+    depends_on:
+      - postgres
+    tty: true
