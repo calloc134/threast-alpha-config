@@ -23,20 +23,6 @@ services:
       - docker-network
     restart: on-failure
 
-  redis:
-    container_name: redis-dev
-    image: redis:latest
-    volumes:
-    - type: bind
-      source: config/redis/redis.conf
-      target: /usr/local/etc/redis/redis.conf
-    - type: volume
-      source: redis-vol-prod
-      target: /data
-    networks:
-      - docker-network
-    restart: on-failure
-
   nest:
     container_name: nest-prod
     build:
