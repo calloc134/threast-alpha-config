@@ -8,6 +8,29 @@
 
 などをまとめたものである。
 
+## 環境変数ファイル一覧
+以下の環境変数ファイルを使用する。
+ - nest.dev.env
+   - NestJSの開発環境で参照する環境変数を記述したもの
+     - DATABASE_URL
+       - データベースのURL
+     - SESSION_KEY
+       - セッションクッキーで用いるキーを指定
+     - ADMIN_PASSWORD
+       - ロールがadminのユーザを作成する時に用いるパスワード
+ - posgre.dev.env
+   - PostgreSQLの開発環境で参照する環境変数を記述したもの
+     - POSTGRES_USER
+       - データベースのユーザ名
+     - POSTGRES_PASSWORD
+       - データベースのパスワード
+ - nest.prod.env
+   - NestJSの本番環境で参照する環境変数を記述したもの
+     - 環境変数はADMIN_PASSWORDがないこと以外は開発環境と同じ
+ - posgre.prod.env
+   - PostgreSQLの本番環境で参照する環境変数を記述したもの
+     - 環境変数は開発環境と同じ
+
 ## Dockerfile一覧
 ### 開発環境
 以下のDockerfileを使用する。  
