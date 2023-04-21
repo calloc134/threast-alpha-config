@@ -5,6 +5,7 @@
  - 環境変数ファイル
  - Dockerfile
  - docker-compose構成ファイル
+
 などをまとめたものである。
 
 ## Dockerfile一覧
@@ -15,7 +16,7 @@ NestJSの開発環境を構築するためのDockerfile。
 ### React
 Reactの開発環境を構築するためのDockerfile。  
 ベースイメージは、node:latest
-ViteでReactのビルドを行うことを想定している。
+ViteでReactのビルドを行うことを想定している。  
 起動時には、必要なパッケージ群をインストールしてからViteを起動。
 
 ## docker composeファイル一覧
@@ -61,8 +62,9 @@ nest-migではttyを有効化しているため、コンテナ内でコマンド
  - postgresql
 
 docker compose内部で使用するネットワークは、以下の通り。
-    
-     - docker-network
+
+ - docker-network  
+
 ここで、react-prodについてはサーバの役割を持たず、reactのビルドを行うだけのコンテナである。  
 postgresql, nest-prodの動作は基本的にcompose-dev.ymlと同じである。  
 nginxでは、docker-networkに接続し、ポート80でHTTP接続を、ポート443でHTTPS接続を開放している。  
